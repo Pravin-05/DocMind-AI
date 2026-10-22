@@ -1,208 +1,728 @@
-# DocMind AI
+# 🧠 DocMind AI
 
-**AI-Powered Multimodal Document Intelligence & RAG Assistant**
+## Multimodal Document Intelligence & RAG Assistant
 
-DocMind AI is a portfolio-grade customization of the open-source [Multimodal RAG](https://github.com/vishakha-codes/multimodal_rag) reference project. It ingests text, URLs, PDFs, images, audio, and video into a shared vector index and answers questions with grounded citations—while passing original media back to Gemini at query time for truly multimodal reasoning.
+DocMind AI is an AI-powered **multimodal document intelligence platform** that allows users to upload documents, retrieve relevant information, ask questions, and receive context-aware answers using **Retrieval-Augmented Generation (RAG)**.
 
-## Demo
+The application combines document processing, text extraction, embeddings, vector search, hybrid retrieval, reranking, Gemini-powered generation, source citations, document summarization, analytics, and authentication into a single Streamlit application.
 
-![Original DocMind AI workflow illustration](assets/docmind-workflow.svg)
+> **DocMind AI is a portfolio and educational GenAI project demonstrating how modern Retrieval-Augmented Generation systems can be designed, evaluated, and deployed using Python.**
 
-The workflow visual is an original DocMind AI illustration. Its sample document text is illustrative and is not a real user document or a captured model response.
+---
 
-## Problem statement
+## ✨ Features
 
-Knowledge is scattered across PDFs, web pages, slides, recordings, and images. Traditional chatbots cannot reliably ground answers in *your* documents. DocMind AI combines multimodal ingestion, hybrid retrieval, and citation-aware generation so users can upload sources once and ask natural-language questions with traceable answers.
+### 📄 Multimodal Document Processing
 
-## Features
+- Upload and process supported documents.
+- Extract text from documents.
+- Split documents into searchable chunks.
+- Store document representations for retrieval.
+- Maintain source metadata for traceability.
 
-- **Multimodal ingestion:** Text, URL, PDF, image, audio, and video in one pipeline
-- **Hybrid retrieval:** Vector similarity (Gemini Embedding 2) + keyword overlap fusion
-- **Optional reranking:** Modular reranker selects the most useful chunks before LLM context
-- **Query routing:** Lightweight routing for QA, summarization, comparison, and general questions
-- **Source citations:** Filename, type, and PDF page numbers when metadata exists
-- **Document summaries:** Per-document “Generate summary” after indexing
-- **Session chat:** Multi-turn conversation in the current browser session
-- **Local account flow:** SQLite registration/login with salted PBKDF2 password hashes
-- **Public landing page:** Feature overview, workflow, technology stack, and account entry points
-- **Document insights:** Live counts for documents, pages, chunks, and queries
-- **Answer feedback:** 👍 / 👎 stored for the current session only
-- **Evaluation hooks:** Example dataset and CLI in `evaluation/evaluate_rag.py`
-- **Persistent vectors:** Local ChromaDB under `data/chroma/` (gitignored)
+### 🧠 Retrieval-Augmented Generation
 
-## Screenshots
+DocMind AI follows a complete RAG pipeline:
 
-Add screenshots of the Streamlit UI here after running locally (`docs/screenshots/` optional).
+1. Document ingestion
+2. Text extraction
+3. Document chunking
+4. Embedding generation
+5. Vector indexing
+6. Query understanding
+7. Hybrid retrieval
+8. Relevance scoring
+9. Reranking
+10. Context construction
+11. LLM answer generation
+12. Source citation
 
-## Architecture
+This allows answers to be grounded in the user's uploaded content instead of relying only on the language model's internal knowledge.
+
+### 🔎 Hybrid Retrieval
+
+DocMind AI combines multiple retrieval signals:
+
+- Vector similarity
+- Keyword overlap
+- Relevance scoring
+- Reranking
+- Route-specific retrieval depth
+
+This improves retrieval quality for both semantic and exact keyword-based questions.
+
+### 🤖 Gemini-Powered Generation
+
+Google Gemini is used for:
+
+- Context-aware question answering
+- Multimodal document understanding
+- Summarization
+- Answer generation
+
+The generation layer is separated from the core RAG pipeline to make the system easier to maintain and extend.
+
+### 📝 Document Summarization
+
+Generate structured summaries from indexed document content.
+
+Summaries can help users quickly understand:
+
+- Main topics
+- Important information
+- Key points
+- Document context
+
+### 📚 Source Citations
+
+Generated answers can include source information so users can understand which retrieved document content contributed to an answer.
+
+### 🔐 Authentication
+
+DocMind AI includes a local authentication layer with:
+
+- User registration
+- Login
+- Email validation
+- Password hashing
+- Authentication state
+- Local SQLite account storage
+
+Passwords are not stored as plain text.
+
+### 📊 Dashboard
+
+The application includes dashboard functionality for monitoring document and retrieval activity.
+
+### 🧪 Automated Testing
+
+The project contains automated tests covering:
+
+- Authentication
+- Configuration
+- Dashboard functionality
+- Gemini services
+- Embeddings
+- Retrieval
+- RAG behavior
+
+Current test status:
+
+```text
+44 passed
+```
+
+---
+
+# 🏗️ System Architecture
 
 ```mermaid
 flowchart TD
-    A[User] --> B[DocMind AI UI]
-    B --> AUTH[SQLite Auth / Session State]
-    AUTH --> C[Protected Document Dashboard]
-    C --> D[Document Ingestion]
-    D --> E[Text / Table / Image / Media Processing]
-    E --> F[Chunking]
-    F --> G[Gemini Embeddings]
-    G --> H[ChromaDB]
-    C --> I[User Query]
-    I --> J[Query Router]
-    J --> K[Hybrid Retrieval]
-    K --> H
-    H --> L[Reranker]
-    L --> M[Context Selection]
-    M --> N[Gemini LLM]
-    N --> O[Answer + Source Citations]
-    O --> C
+
+    A[User] --> B[DocMind AI Streamlit UI]
+
+    B --> C{Authentication}
+
+    C -->|Register| D[SQLite User Database]
+    C -->|Login| D
+    C -->|Authenticated| E[Document Workspace]
+
+    E --> F[Document Upload]
+    F --> G[Document Processing]
+
+    G --> H[Text Extraction]
+    H --> I[Chunking]
+
+    I --> J[Gemini Embeddings]
+    J --> K[ChromaDB Vector Store]
+
+    E --> L[User Query]
+
+    L --> M[Intent Routing]
+    M --> N[Hybrid Retrieval]
+
+    N --> O[Vector Similarity]
+    N --> P[Keyword Matching]
+
+    O --> Q[Reranking]
+    P --> Q
+
+    Q --> R[Relevant Context]
+
+    R --> S[Gemini LLM]
+
+    S --> T[Generated Answer]
+    T --> U[Source Citations]
+
+    E --> V[Summarization]
+    V --> S
+
+    E --> W[Dashboard]
 ```
 
-## RAG pipeline
+---
 
-1. **Ingest** — Detect source type and extract content (PyPDF, HTTP fetch, Gemini File API for media).
-2. **Chunk** — `RecursiveCharacterTextSplitter` with configurable size/overlap.
-3. **Embed** — Gemini Embedding 2 per chunk.
-4. **Store** — ChromaDB (persistent local path `data/chroma/`).
-5. **Query** — Route intent → embed question → hybrid retrieve → rerank → build multimodal prompt.
-6. **Generate** — Gemini 3 Flash with text context and original media URIs when retrieved.
-7. **Cite** — Surface known metadata (label, type, page) in the UI.
+# 🔄 RAG Pipeline
 
-## Multimodal processing
+```mermaid
+flowchart LR
 
-| Type | Processing |
-|------|------------|
-| Text | Direct chunking |
-| URL | Fetch + HTML cleanup |
-| PDF | LangChain `PyPDFLoader` (first 100 pages cap) |
-| Image / audio / video | Gemini File API → description/transcript → index; file URI replayed at answer time |
+    A[Documents] --> B[Ingestion]
 
-## Technology stack
+    B --> C[Text Extraction]
 
-| Layer | Technology |
-|-------|------------|
-| UI | Streamlit |
-| LLM | Gemini 3 Flash (`gemini-3-flash-preview`) |
-| Embeddings | Gemini Embedding 2 (`gemini-embedding-2`) |
-| Orchestration | LangChain document loaders & splitters |
-| Vector DB | ChromaDB (persistent local) |
-| Media | Google Gemini File API |
-| Local authentication | Python `sqlite3` and PBKDF2-HMAC-SHA256 (`hashlib`) |
+    C --> D[Chunking]
 
-## Project structure
+    D --> E[Embedding Model]
 
-```text
-multimodal_rag-main/
-├── app.py                 # DocMind AI Streamlit UI
-├── rag.py                 # MultimodalRAG orchestrator
-├── config.py              # Constants and paths
-├── services/
-│   ├── auth.py            # Local SQLite accounts and password verification
-│   ├── embeddings.py
-│   ├── retrieval.py       # Hybrid search + reranker
-│   ├── routing.py
-│   ├── generation.py
-│   └── summarization.py
-├── evaluation/
-│   └── evaluate_rag.py
-├── data/
-│   └── chroma/            # Created at runtime (gitignored)
-│   └── docmind_users.sqlite3 # Created at runtime (gitignored)
-├── assets/
-│   └── docmind-workflow.svg # Original DocMind AI workflow illustration
-├── pyproject.toml
-├── .env.example           # Placeholder only; copy to .env locally
-└── README.md
+    E --> F[(ChromaDB)]
+
+    G[User Question] --> H[Intent Router]
+
+    H --> I[Query Embedding]
+
+    I --> F
+
+    G --> J[Keyword Search]
+
+    F --> K[Candidate Documents]
+    J --> K
+
+    K --> L[Hybrid Scoring]
+
+    L --> M[Reranking]
+
+    M --> N[Top Relevant Context]
+
+    N --> O[Gemini]
+
+    O --> P[Grounded Answer]
+
+    P --> Q[Source Citations]
 ```
 
-## Prerequisites
+---
+
+# 🧩 Project Components
+
+| Component | Purpose |
+|---|---|
+| `app.py` | Streamlit application and UI |
+| `rag.py` | Core RAG pipeline |
+| `config.py` | Application configuration |
+| `services/auth.py` | Authentication and user management |
+| `services/embeddings.py` | Gemini embedding integration |
+| `services/generation.py` | LLM answer generation |
+| `services/gemini.py` | Gemini service utilities |
+| `services/retrieval.py` | Retrieval and ranking |
+| `services/routing.py` | Query intent routing |
+| `services/summarization.py` | Document summarization |
+| `services/dashboard.py` | Dashboard functionality |
+| `evaluation/` | RAG evaluation utilities |
+| `tests/` | Automated tests |
+| `assets/` | Project assets and architecture graphics |
+| `data/` | Local runtime data |
+
+---
+
+# 🛠️ Tech Stack
+
+## Programming Language
 
 - Python 3.10+
-- [uv](https://docs.astral.sh/uv/)
-- Google API key from [Google AI Studio](https://aistudio.google.com)
+- Tested with Python 3.11
 
-## Installation
+## Frontend / UI
+
+- Streamlit
+
+## AI / GenAI
+
+- Google Gemini
+- Google GenAI SDK
+- Embeddings
+- Retrieval-Augmented Generation
+
+## RAG / NLP
+
+- LangChain
+- LangChain Core
+- LangChain Community
+- LangChain Text Splitters
+
+## Vector Database
+
+- ChromaDB
+
+## Document Processing
+
+- PyPDF
+- BeautifulSoup4
+- HTTPX
+
+## Database
+
+- SQLite for local authentication
+
+## Environment Management
+
+- `uv`
+- `python-dotenv`
+
+## Testing
+
+- Pytest
+
+---
+
+# 📁 Project Structure
+
+```text
+DocMind-AI/
+│
+├── assets/
+│   └── docmind-workflow.svg
+│
+├── data/
+│   └── .gitkeep
+│
+├── evaluation/
+│   └── evaluate_rag.py
+│
+├── services/
+│   ├── __init__.py
+│   ├── auth.py
+│   ├── dashboard.py
+│   ├── embeddings.py
+│   ├── gemini.py
+│   ├── generation.py
+│   ├── retrieval.py
+│   ├── routing.py
+│   └── summarization.py
+│
+├── tests/
+│   ├── test_auth.py
+│   ├── test_config.py
+│   ├── test_dashboard.py
+│   ├── test_gemini_services.py
+│   └── test_rag_offline.py
+│
+├── .env.example
+├── .gitignore
+├── app.py
+├── config.py
+├── pyproject.toml
+├── rag.py
+├── README.md
+└── uv.lock
+```
+
+---
+
+# ⚙️ Installation
+
+## 1. Clone the repository
 
 ```bash
-cd multimodal_rag-main
-copy .env.example .env
-# Edit .env and set GOOGLE_API_KEY
+git clone https://github.com/Pravin-05/DocMind-AI.git
+cd DocMind-AI
+```
+
+---
+
+## 2. Install `uv`
+
+If `uv` is not already installed:
+
+### Windows PowerShell
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+Restart your terminal after installation.
+
+Verify:
+
+```powershell
+uv --version
+```
+
+---
+
+## 3. Create the environment and install dependencies
+
+The project includes `pyproject.toml` and `uv.lock`.
+
+Run:
+
+```bash
 uv sync
 ```
 
-On macOS/Linux, use `cp .env.example .env` instead of `copy`.
+This creates the project environment and installs the dependencies required by DocMind AI.
 
-## Environment variables
+---
 
-| Variable | Description |
-|----------|-------------|
-| `GOOGLE_API_KEY` | Gemini LLM, embeddings, and File API |
+# 🔑 Environment Configuration
 
-Accounts are stored locally in `data/docmind_users.sqlite3`; only salted PBKDF2 password hashes are stored. Login state is held in Streamlit session state. The local account database is ignored by Git.
+Create a local `.env` file from the provided example.
 
-Never commit `.env` or real API keys.
+### Windows
 
-## Running locally
+```powershell
+copy .env.example .env
+```
+
+Then open `.env`:
+
+```powershell
+notepad .env
+```
+
+Add your Google Gemini API key:
+
+```env
+GOOGLE_API_KEY=your_google_gemini_api_key
+```
+
+> ⚠️ **Never commit your real `.env` file or API key to GitHub.**
+
+The repository's `.gitignore` is configured to exclude `.env` files and local runtime data.
+
+---
+
+# ▶️ Run DocMind AI
+
+From the project root:
 
 ```bash
 uv run streamlit run app.py
 ```
 
-Open `http://localhost:8501`.
+Streamlit will start the application locally.
 
-## Usage
-
-1. Register a local account or log in with an existing account.
-2. Enter your API key (or use `.env`) in the authenticated dashboard.
-3. Add documents from the sidebar (text, URL, PDF, image, audio, video).
-4. Ask questions in the chat area—or use **Generate summary** on an indexed document.
-5. Review **Sources** and **Retrieved context** under each answer.
-6. Use **New conversation** to clear chat (documents remain indexed until reset), or log out to return to the landing page.
-
-## RAG workflow (conceptual)
+Open the URL displayed in the terminal, normally:
 
 ```text
-Input → Source detection → Extraction → Chunking → Embedding → ChromaDB
-Query → Router → Vector + keyword fusion → Rerank → LLM → Answer + citations
+http://localhost:8501
 ```
 
-## Evaluation
+---
 
-Run the example evaluation CLI (requires `GOOGLE_API_KEY`):
+# 🧪 Run Tests
+
+Run the complete test suite:
 
 ```bash
-uv run python evaluation/evaluate_rag.py
+uv run pytest
 ```
 
-Metrics reported are **real** for the run: latency, retrieval hit (substring match on labels), citation hit, and answer length—no fabricated accuracy percentages.
+Expected result:
 
-## Limitations
+```text
+44 passed
+```
 
-- PDF page cap (100) for large files; not a full enterprise OCR pipeline
-- Embeddings are per-chunk sequential calls (API latency)
-- Conversations and 👍/👎 feedback are **session-only** unless you add persistence
-- Authentication is a lightweight local portfolio/demo feature, not production-grade identity management. It has no password reset, email verification, rate limiting, account recovery, or multi-instance session architecture.
-- The Chroma collection is shared by the local app instance and is not partitioned per account; this is not suitable for private multi-user deployments.
-- URL ingestion depends on public, fetchable pages
-- Model availability depends on Google API model names and quotas
+The tests cover the major application components without requiring a live Gemini API call for the offline test paths.
 
-## Future improvements
+---
 
-- Persistent chat and feedback storage
-- Cross-encoder or LLM-based reranking
-- Deduplication / content-hash caching to skip re-embedding
-- Batch embedding where the API supports it
-- Production identity provider, per-user document isolation, password recovery, and abuse protections
+# 🔬 Test Coverage
 
-## Credits & attribution
+The current test suite includes:
 
-This project is a **customized derivative** of the open-source **Multimodal RAG** reference implementation by [vishakha-codes](https://github.com/vishakha-codes/multimodal_rag). Core ideas—multimodal ingestion, Gemini File API replay, and Chroma-backed RAG—come from that work.
+```text
+tests/
+├── test_auth.py
+├── test_config.py
+├── test_dashboard.py
+├── test_gemini_services.py
+└── test_rag_offline.py
+```
 
-DocMind AI additions include branding, UI/UX, hybrid retrieval, query routing, reranking, summarization, citations UI, insights, feedback, evaluation scaffolding, and persistent Chroma storage.
+Run a specific test file:
 
-The local landing, registration, login, and logout flow is an additional portfolio feature. This copy does not include an upstream `LICENSE` file; no license has been added or replaced. Preserve the upstream license and attribution requirements before redistribution.
+```bash
+uv run pytest tests/test_auth.py
+```
 
-If the upstream repository includes a LICENSE file, retain it alongside this project and comply with its terms.
+Run the RAG tests:
 
-## License
+```bash
+uv run pytest tests/test_rag_offline.py
+```
 
-Follow the license of the upstream **Multimodal RAG** repository. If no license file is present in your copy, obtain licensing terms from the original author before redistribution.
+Run tests with verbose output:
+
+```bash
+uv run pytest -v
+```
+
+---
+
+# 🚀 Demo Workflow
+
+A typical DocMind AI workflow is:
+
+```text
+1. Open DocMind AI
+        ↓
+2. Register / Login
+        ↓
+3. Upload a document
+        ↓
+4. Document is processed
+        ↓
+5. Text is extracted and chunked
+        ↓
+6. Embeddings are generated
+        ↓
+7. Chunks are stored in ChromaDB
+        ↓
+8. Ask a question
+        ↓
+9. Query is routed
+        ↓
+10. Relevant content is retrieved
+        ↓
+11. Results are ranked
+        ↓
+12. Gemini generates the answer
+        ↓
+13. Sources are displayed
+```
+
+---
+
+# 💡 Example Questions
+
+After uploading a document, users can ask questions such as:
+
+```text
+What are the main topics discussed in this document?
+```
+
+```text
+Summarize the document.
+```
+
+```text
+What are the key findings?
+```
+
+```text
+What does the document say about the project objectives?
+```
+
+```text
+Compare the important points across the uploaded sources.
+```
+
+The system retrieves relevant context before generating the final response.
+
+---
+
+# 🔐 Security Considerations
+
+DocMind AI follows several basic security practices:
+
+- API keys are loaded from environment variables.
+- `.env` is excluded from Git.
+- Local SQLite runtime data is excluded from Git.
+- ChromaDB runtime storage is excluded from Git.
+- Passwords are hashed rather than stored as plain text.
+- Authentication is separated from the main application logic.
+
+For production deployment, additional security controls should be implemented.
+
+---
+
+# 📦 Local Runtime Data
+
+The following files/directories are intentionally not committed:
+
+```text
+.env
+.venv/
+data/chroma/
+data/*.sqlite3
+__pycache__/
+.pytest_cache/
+```
+
+These contain local credentials, databases, caches, or generated vector-store data.
+
+The repository keeps:
+
+```text
+data/.gitkeep
+```
+
+so the data directory remains represented in Git.
+
+---
+
+# 📊 Evaluation
+
+The repository contains evaluation scaffolding under:
+
+```text
+evaluation/
+```
+
+The evaluation layer is intended to support experimentation with RAG quality and retrieval behavior.
+
+Potential evaluation dimensions include:
+
+- Retrieval relevance
+- Context quality
+- Answer grounding
+- Citation quality
+- Response accuracy
+- Retrieval depth
+
+---
+
+# ⚠️ Current Limitations
+
+DocMind AI is currently designed primarily as a **portfolio and educational GenAI application**.
+
+Current limitations include:
+
+- Local SQLite authentication is not intended for production-scale user management.
+- ChromaDB is currently used as a local vector database.
+- Gemini API access requires a valid API key.
+- Retrieval quality depends on document structure and embedding quality.
+- Very large documents may require additional optimization.
+- Production deployment would require stronger authentication and authorization.
+- Evaluation datasets and metrics can be expanded further.
+- The application is currently optimized for local development and demonstration.
+
+---
+
+# 🔮 Future Enhancements
+
+Potential future improvements include:
+
+### 🤖 Advanced AI
+
+- Multi-model LLM support
+- Local LLM support
+- Improved multimodal reasoning
+- Vision-language document understanding
+- Agentic RAG
+- Query decomposition
+- Self-reflective RAG
+- Corrective RAG
+
+### 🔎 Retrieval
+
+- Hybrid BM25 + vector retrieval
+- Advanced reranking models
+- Metadata filtering
+- Query expansion
+- Multi-query retrieval
+- Parent-document retrieval
+
+### 📄 Document Intelligence
+
+- DOCX support
+- PPTX support
+- Excel analysis
+- Table extraction
+- OCR
+- Image understanding
+- Scanned PDF processing
+
+### ☁️ Deployment
+
+- Docker
+- Cloud deployment
+- PostgreSQL
+- Managed vector databases
+- Object storage
+- Production authentication
+- API-based architecture
+
+### 📊 Evaluation
+
+- RAGAS integration
+- Automated benchmark datasets
+- Retrieval metrics
+- Faithfulness evaluation
+- Answer relevance scoring
+- Hallucination detection
+
+---
+
+# 🧠 Why RAG?
+
+Traditional LLM applications can generate impressive responses, but they may not have access to a user's private documents.
+
+RAG solves this by retrieving relevant information from an external knowledge source before generating an answer.
+
+```text
+Traditional LLM
+
+Question ───────────────► LLM ───────────────► Answer
+                              │
+                              └── Internal knowledge
+```
+
+DocMind AI instead uses:
+
+```text
+Question
+   │
+   ▼
+Retriever
+   │
+   ▼
+Relevant Document Context
+   │
+   ▼
+Gemini
+   │
+   ▼
+Grounded Answer + Sources
+```
+
+This allows the application to answer questions using information contained in the user's documents.
+
+---
+
+# 🏆 Portfolio Highlights
+
+DocMind AI demonstrates practical implementation of several modern GenAI concepts:
+
+- Retrieval-Augmented Generation
+- Multimodal document processing
+- Vector databases
+- Embeddings
+- Hybrid retrieval
+- Reranking
+- LLM integration
+- Prompt engineering
+- Document summarization
+- Source attribution
+- Authentication
+- Automated testing
+- Evaluation scaffolding
+- Modular Python architecture
+
+The project is structured to demonstrate not only an AI interface, but also the underlying engineering required to build a maintainable RAG application.
+
+---
+
+# 🧪 Development Commands
+
+### Install dependencies
+
+```bash
+uv sync
+```
+
+### Run the application
+
+```bash
