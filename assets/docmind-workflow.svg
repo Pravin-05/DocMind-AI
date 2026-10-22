@@ -1,0 +1,210 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title description">
+  <title id="title">DocMind AI document intelligence workflow</title>
+  <desc id="description">An original DocMind AI storyboard showing landing, account access, source upload and indexing, grounded chat with citations, document summary, and logout.</desc>
+  <defs>
+    <linearGradient id="backdrop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1522"/>
+      <stop offset="1" stop-color="#132837"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c8f36a"/>
+      <stop offset="1" stop-color="#77d8a0"/>
+    </linearGradient>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#020914" flood-opacity=".28"/>
+    </filter>
+    <style>
+      text { font-family: "Segoe UI", Arial, sans-serif; }
+      .muted { fill:#9fb2c2; }
+      .bright { fill:#f3f7f8; }
+      .small { font-size:14px; }
+      .micro { font-size:11px; }
+      .label { font-size:12px; font-weight:700; letter-spacing:1.2px; }
+      .card { fill:#f8faf8; stroke:#dce5e1; stroke-width:1; }
+      .ink { fill:#12222d; }
+      .green { fill:#397b56; }
+      .line { stroke:#d8e2de; stroke-width:1; }
+    </style>
+  </defs>
+
+  <rect width="1440" height="1000" rx="28" fill="url(#backdrop)"/>
+  <circle cx="1320" cy="80" r="180" fill="#37634c" opacity=".13"/>
+  <circle cx="90" cy="890" r="210" fill="#356071" opacity=".12"/>
+
+  <g transform="translate(72 58)">
+    <rect width="42" height="42" rx="12" fill="url(#accent)"/>
+    <path d="M11 13h20v4H15v5h13v4H15v6h16v4H11z" fill="#16322a"/>
+    <text x="58" y="20" class="bright" font-size="20" font-weight="700">DocMind AI</text>
+    <text x="58" y="40" class="muted" font-size="11">DOCUMENT INTELLIGENCE WORKFLOW</text>
+  </g>
+
+  <text x="72" y="164" class="bright" font-size="42" font-weight="700">From document to grounded answer</text>
+  <text x="74" y="198" class="muted" font-size="17">A complete workspace journey, from account entry to cited insights.</text>
+  <rect x="1185" y="89" width="183" height="34" rx="17" fill="#203c36" stroke="#44684f"/>
+  <circle cx="1205" cy="106" r="5" fill="#a9e66c"/>
+  <text x="1218" y="111" fill="#d7f1bd" font-size="12" font-weight="600">ORIGINAL DOCMIND VISUAL</text>
+
+  <!-- Journey rail -->
+  <path d="M110 260H1320" stroke="#58766d" stroke-width="2" stroke-dasharray="5 9" opacity=".8"/>
+  <g fill="#c8f36a" stroke="#0e1a25" stroke-width="5">
+    <circle cx="145" cy="260" r="15"/><circle cx="435" cy="260" r="15"/>
+    <circle cx="725" cy="260" r="15"/><circle cx="1015" cy="260" r="15"/>
+    <circle cx="1305" cy="260" r="15"/>
+  </g>
+  <g fill="#17332a" font-size="11" font-weight="800" text-anchor="middle">
+    <text x="145" y="264">01</text><text x="435" y="264">02</text>
+    <text x="725" y="264">03</text><text x="1015" y="264">04</text>
+    <text x="1305" y="264">05</text>
+  </g>
+
+  <!-- Step 1: landing -->
+  <g transform="translate(72 294)" filter="url(#shadow)">
+    <rect class="card" width="248" height="410" rx="16"/>
+    <rect width="248" height="40" rx="16" fill="#eaf0ed"/>
+    <path d="M0 24h248v16H0z" fill="#eaf0ed"/>
+    <circle cx="18" cy="20" r="4" fill="#d48778"/><circle cx="32" cy="20" r="4" fill="#e5c76e"/><circle cx="46" cy="20" r="4" fill="#78b88a"/>
+    <text x="18" y="72" class="ink" font-size="13" font-weight="700">DocMind AI</text>
+    <text x="18" y="126" class="ink" font-size="23" font-weight="700">Understand your</text>
+    <text x="18" y="154" class="ink" font-size="23" font-weight="700">documents with AI</text>
+    <text x="18" y="184" fill="#637681" font-size="11">Multimodal document intelligence</text>
+    <text x="18" y="201" fill="#637681" font-size="11">powered by retrieval-augmented answers.</text>
+    <rect x="18" y="226" width="114" height="34" rx="8" fill="#294d3d"/>
+    <text x="75" y="248" text-anchor="middle" fill="#f5faef" font-size="12" font-weight="700">Get Started</text>
+    <rect x="140" y="226" width="90" height="34" rx="8" fill="#fff" stroke="#cfdbd5"/>
+    <text x="185" y="248" text-anchor="middle" fill="#294d3d" font-size="12" font-weight="700">Login</text>
+    <rect x="18" y="286" width="212" height="82" rx="10" fill="#edf4ef"/>
+    <path d="M34 338l35-32 30 22 29-19 36 30" fill="none" stroke="#55906b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="69" cy="306" r="4" fill="#a7d66c"/><circle cx="99" cy="328" r="4" fill="#a7d66c"/><circle cx="128" cy="309" r="4" fill="#a7d66c"/>
+  </g>
+  <text x="72" y="740" class="bright" font-size="17" font-weight="700">Landing page</text>
+  <text x="72" y="763" class="muted small">Start or choose Login</text>
+
+  <!-- Step 2: account access -->
+  <g transform="translate(362 294)" filter="url(#shadow)">
+    <rect class="card" width="248" height="410" rx="16"/>
+    <rect width="248" height="40" rx="16" fill="#eaf0ed"/>
+    <path d="M0 24h248v16H0z" fill="#eaf0ed"/>
+    <circle cx="18" cy="20" r="4" fill="#d48778"/><circle cx="32" cy="20" r="4" fill="#e5c76e"/><circle cx="46" cy="20" r="4" fill="#78b88a"/>
+    <text x="22" y="81" class="ink" font-size="20" font-weight="700">Welcome back</text>
+    <text x="22" y="104" fill="#71818a" font-size="11">Sign in to your document workspace</text>
+    <text x="22" y="149" fill="#465b65" font-size="11" font-weight="600">Email</text>
+    <rect x="22" y="160" width="204" height="34" rx="7" fill="#fff" stroke="#d3dfd9"/>
+    <text x="32" y="182" fill="#829099" font-size="11">you@example.com</text>
+    <text x="22" y="222" fill="#465b65" font-size="11" font-weight="600">Password</text>
+    <rect x="22" y="233" width="204" height="34" rx="7" fill="#fff" stroke="#d3dfd9"/>
+    <text x="32" y="255" fill="#829099" font-size="11">••••••••••</text>
+    <rect x="22" y="289" width="204" height="36" rx="8" fill="#294d3d"/>
+    <text x="124" y="312" text-anchor="middle" fill="#f5faef" font-size="12" font-weight="700">Login</text>
+    <text x="124" y="353" text-anchor="middle" fill="#637681" font-size="11">New to DocMind? Register</text>
+  </g>
+  <text x="362" y="740" class="bright" font-size="17" font-weight="700">Account access</text>
+  <text x="362" y="763" class="muted small">Login or register securely</text>
+
+  <!-- Step 3: upload and process -->
+  <g transform="translate(652 294)" filter="url(#shadow)">
+    <rect class="card" width="248" height="410" rx="16"/>
+    <rect width="248" height="40" rx="16" fill="#eaf0ed"/>
+    <path d="M0 24h248v16H0z" fill="#eaf0ed"/>
+    <circle cx="18" cy="20" r="4" fill="#d48778"/><circle cx="32" cy="20" r="4" fill="#e5c76e"/><circle cx="46" cy="20" r="4" fill="#78b88a"/>
+    <rect x="0" y="40" width="66" height="370" fill="#172832"/>
+    <text x="12" y="68" fill="#f2f6f5" font-size="10" font-weight="700">DocMind</text>
+    <text x="12" y="101" fill="#b7c6c7" font-size="9">Connection</text>
+    <text x="12" y="133" fill="#b7c6c7" font-size="9">Add a source</text>
+    <rect x="9" y="148" width="48" height="23" rx="5" fill="#f7faf8"/>
+    <text x="17" y="163" fill="#304751" font-size="9">Text</text>
+    <text x="81" y="72" class="ink" font-size="16" font-weight="700">Add a source</text>
+    <text x="81" y="98" fill="#6d7e86" font-size="10">Source type</text>
+    <rect x="81" y="108" width="148" height="28" rx="6" fill="#fff" stroke="#d5e0da"/>
+    <text x="92" y="126" fill="#40565e" font-size="10">Text</text>
+    <text x="81" y="160" fill="#6d7e86" font-size="10">Text content</text>
+    <rect x="81" y="170" width="148" height="86" rx="7" fill="#fff" stroke="#d5e0da"/>
+    <text x="92" y="191" fill="#40565e" font-size="9">Launch plan: research,</text>
+    <text x="92" y="207" fill="#40565e" font-size="9">prototype, and customer</text>
+    <text x="92" y="223" fill="#40565e" font-size="9">feedback milestones...</text>
+    <text x="81" y="277" fill="#6d7e86" font-size="10">Source label</text>
+    <rect x="81" y="287" width="148" height="28" rx="6" fill="#fff" stroke="#d5e0da"/>
+    <text x="92" y="305" fill="#40565e" font-size="9">Product launch notes</text>
+    <rect x="81" y="330" width="148" height="32" rx="7" fill="#294d3d"/>
+    <text x="155" y="350" text-anchor="middle" fill="#f5faef" font-size="10" font-weight="700">Index text</text>
+    <circle cx="91" cy="385" r="7" fill="#419b70"/>
+    <path d="M88 385l2 2 4-5" fill="none" stroke="#fff" stroke-width="1.5"/>
+    <text x="105" y="389" fill="#347855" font-size="9" font-weight="700">Text indexed · 3 chunks</text>
+  </g>
+  <text x="652" y="740" class="bright" font-size="17" font-weight="700">Upload &amp; process</text>
+  <text x="652" y="763" class="muted small">Extract, embed, index</text>
+
+  <!-- Step 4: chat, answer, sources -->
+  <g transform="translate(942 294)" filter="url(#shadow)">
+    <rect class="card" width="248" height="410" rx="16"/>
+    <rect width="248" height="40" rx="16" fill="#eaf0ed"/>
+    <path d="M0 24h248v16H0z" fill="#eaf0ed"/>
+    <circle cx="18" cy="20" r="4" fill="#d48778"/><circle cx="32" cy="20" r="4" fill="#e5c76e"/><circle cx="46" cy="20" r="4" fill="#78b88a"/>
+    <text x="18" y="69" class="ink" font-size="15" font-weight="700">Conversation</text>
+    <rect x="18" y="87" width="212" height="55" rx="8" fill="#e9f0ed"/>
+    <text x="29" y="108" fill="#344b55" font-size="9">What are the key launch</text>
+    <text x="29" y="123" fill="#344b55" font-size="9">milestones?</text>
+    <rect x="18" y="153" width="212" height="119" rx="8" fill="#f0f5f1" stroke="#dce6df"/>
+    <circle cx="34" cy="172" r="7" fill="#294d3d"/>
+    <text x="49" y="176" fill="#294d3d" font-size="10" font-weight="700">Grounded answer</text>
+    <text x="29" y="198" fill="#344b55" font-size="9">The plan identifies research,</text>
+    <text x="29" y="213" fill="#344b55" font-size="9">prototype validation, and feedback</text>
+    <text x="29" y="228" fill="#344b55" font-size="9">review as key milestones.</text>
+    <line x1="29" y1="240" x2="219" y2="240" class="line"/>
+    <text x="29" y="258" fill="#536b73" font-size="9" font-weight="700">SOURCES</text>
+    <rect x="18" y="283" width="212" height="39" rx="7" fill="#eef5e7" stroke="#d4e3c7"/>
+    <path d="M31 293h9l5 5v14H31z" fill="#71a36c"/>
+    <text x="53" y="300" fill="#354c53" font-size="9" font-weight="700">Product launch notes</text>
+    <text x="53" y="314" fill="#708088" font-size="8">Text · retrieved passage</text>
+    <rect x="18" y="336" width="212" height="48" rx="7" fill="#fff" stroke="#d5e0da"/>
+    <text x="30" y="356" fill="#839199" font-size="9">Ask a follow-up question...</text>
+  </g>
+  <text x="942" y="740" class="bright" font-size="17" font-weight="700">Ask &amp; review sources</text>
+  <text x="942" y="763" class="muted small">Answer with citations</text>
+
+  <!-- Step 5: summary/logout -->
+  <g transform="translate(1232 294)" filter="url(#shadow)">
+    <rect class="card" width="136" height="410" rx="16"/>
+    <rect width="136" height="40" rx="16" fill="#eaf0ed"/>
+    <path d="M0 24h136v16H0z" fill="#eaf0ed"/>
+    <circle cx="16" cy="20" r="4" fill="#d48778"/><circle cx="30" cy="20" r="4" fill="#e5c76e"/><circle cx="44" cy="20" r="4" fill="#78b88a"/>
+    <text x="14" y="68" class="ink" font-size="13" font-weight="700">Documents</text>
+    <rect x="14" y="82" width="108" height="29" rx="6" fill="#e7efe9"/>
+    <text x="22" y="101" fill="#344b55" font-size="8">Product launch notes</text>
+    <text x="14" y="135" fill="#667981" font-size="9">3 chunks · indexed</text>
+    <rect x="14" y="154" width="108" height="34" rx="7" fill="#294d3d"/>
+    <text x="68" y="175" text-anchor="middle" fill="#f5faef" font-size="9" font-weight="700">Generate summary</text>
+    <text x="14" y="219" fill="#294d3d" font-size="10" font-weight="700">Summary</text>
+    <text x="14" y="240" fill="#465d65" font-size="8">Overview</text>
+    <text x="14" y="255" fill="#71818a" font-size="8">A staged product</text>
+    <text x="14" y="268" fill="#71818a" font-size="8">launch with iterative</text>
+    <text x="14" y="281" fill="#71818a" font-size="8">customer validation.</text>
+    <line x1="14" y1="301" x2="122" y2="301" class="line"/>
+    <text x="14" y="324" fill="#294d3d" font-size="9" font-weight="700">Key points</text>
+    <circle cx="18" cy="343" r="2" fill="#77aa68"/><text x="25" y="346" fill="#71818a" font-size="8">Research</text>
+    <circle cx="18" cy="360" r="2" fill="#77aa68"/><text x="25" y="363" fill="#71818a" font-size="8">Prototype</text>
+    <rect x="14" y="376" width="108" height="23" rx="6" fill="#f2e9e6"/>
+    <text x="68" y="392" text-anchor="middle" fill="#80544b" font-size="8" font-weight="700">Log out</text>
+  </g>
+  <text x="1232" y="740" class="bright" font-size="17" font-weight="700">Summarize &amp; exit</text>
+  <text x="1232" y="763" class="muted small">Finish with logout</text>
+
+  <!-- Footer workflow key -->
+  <rect x="72" y="824" width="1296" height="110" rx="16" fill="#142633" stroke="#304954"/>
+  <text x="102" y="865" fill="#c8f36a" class="label">THE DOCMIND FLOW</text>
+  <text x="102" y="895" class="bright" font-size="17" font-weight="600">Landing</text>
+  <text x="202" y="895" class="muted" font-size="17">→</text>
+  <text x="232" y="895" class="bright" font-size="17" font-weight="600">Login / Register</text>
+  <text x="391" y="895" class="muted" font-size="17">→</text>
+  <text x="421" y="895" class="bright" font-size="17" font-weight="600">Upload</text>
+  <text x="491" y="895" class="muted" font-size="17">→</text>
+  <text x="521" y="895" class="bright" font-size="17" font-weight="600">Process</text>
+  <text x="603" y="895" class="muted" font-size="17">→</text>
+  <text x="633" y="895" class="bright" font-size="17" font-weight="600">Ask</text>
+  <text x="680" y="895" class="muted" font-size="17">→</text>
+  <text x="710" y="895" class="bright" font-size="17" font-weight="600">Cited answer</text>
+  <text x="831" y="895" class="muted" font-size="17">→</text>
+  <text x="861" y="895" class="bright" font-size="17" font-weight="600">Summary</text>
+  <text x="950" y="895" class="muted" font-size="17">→</text>
+  <text x="980" y="895" class="bright" font-size="17" font-weight="600">Logout</text>
+  <text x="102" y="918" class="muted" font-size="11">Illustrative sample content · interface labels reflect the current DocMind AI application</text>
+</svg>
